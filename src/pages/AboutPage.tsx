@@ -11,7 +11,7 @@ function AboutPage() {
       <p className="h1 mb-4">About</p>
       <p className="text-muted">
         Here I will outline the process behind the development of this website
-        and some of technologies used to build it. The codebase can be found at
+        and some of the technologies used to build it. The codebase can be found at
         this public
         <a
           href="https://github.com/jialongkang/cmcl-flood-app"
