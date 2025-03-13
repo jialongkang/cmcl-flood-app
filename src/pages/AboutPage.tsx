@@ -10,8 +10,9 @@ function AboutPage() {
 
       <p className="h1 mb-4">About</p>
       <p className="text-muted">
-        Here I will outline the process and technologies behind this tool. The
-        codebase can be found at this public
+        Here I will outline the process behind the development of this website
+        and some of technologies used to build it. The codebase can be found at
+        this public
         <a
           href="https://github.com/jialongkang/cmcl-flood-app"
           target="_blank"
@@ -28,8 +29,8 @@ function AboutPage() {
         This website was created as part of the application process for a
         Computational Scientist role at Computational Modelling Cambridge Ltd.
         (CMCL). The task was to build a tool (webpage, script, desktop
-        application etc.) that interacts with the Environmental Agency's (EA)
-        Real Time flood-monitoring API, allows users to select individual
+        application, etc.) that interacts with the Environmental Agency's (EA)
+        Real Time flood-monitoring API and allows users to select individual
         measurement stations and view a line graph of that station's readings
         over the last 24 hours.
       </p>
@@ -40,10 +41,10 @@ function AboutPage() {
       <ul className="text-muted">
         <li>ReactJS</li>
         <li>Bootstrap CSS</li>
+        <li>TypeScript</li>
         <li>Chart.js</li>
         <li>Google Maps API</li>
         <li>GeoPy</li>
-        <li>Node.js</li>
       </ul>
 
       <p className="h4 mt-5 mb-4">ReactJS — Front-end Javascript library</p>
@@ -54,15 +55,15 @@ function AboutPage() {
         </p>
       </div>
       <p className="text-muted">
-        My background and expertise lies in Physics, so although I had lots of
+        My background and expertise lies in Physics, so although I have
         experience with techniques in computational science, this was my first
         attempt at building software up to professional standards and with
         concerns for UX. Thus, to complete this task,
-        <strong>I learnt ReactJS</strong> and
-        <strong>applied best-practice methods</strong> for dividing
+        <strong> I learnt ReactJS</strong> and
+        <strong> applied best-practice methods</strong> for dividing
         functionalities across components and ensuring clean, reusable
         components. I also used Bootstrap CSS templates to handle fonts and
-        common objects like buttons, as React and Bootstrap at both the most
+        common objects like buttons, as React and Bootstrap are both the most
         popular libraries for professional web development.
       </p>
       <p className="text-muted">
@@ -74,11 +75,11 @@ function AboutPage() {
         pages. For example, I also made a dedicated component which fetched the
         river gauge data from the API using Axios, as well as a 'Types'
         component keeping track of common data structures and their expected
-        typings, i.e. making use of Typescript to detect errors at compile time.
-        The benefit of this overall structure is that children components can be
-        easily repurposed, and the page components have clear/readable
-        logic—making the codebase robust for future improvements from different
-        coders.
+        typings, i.e. making use of <strong> TypeScript </strong>to detect
+        errors at compile time. The benefit of this overall structure is that
+        children components can be easily repurposed, and the page components
+        have clear, readable logic—making the codebase robust for future
+        improvements from different coders.
       </p>
       <p className="text-muted">
         For example, I have a single 'Page' component dedicated to displaying
@@ -108,12 +109,12 @@ function AboutPage() {
         where we can use query conditions using "?..." as needed.
       </p>
       <p className="text-muted">
-        With over 5000 total stations, although many data entries are unlabelled
-        or refer to suspended stations, the obvious consideration for UX was to
-        group the stations by the county they are found in (as similar websites
-        do). But crucially, the API response does not provide the county
-        information anywhere, which means that I couldn't dynamically display a
-        list of stations directly from a fetch request. Instead, I had to use a{" "}
+        With over 5000 total stations, although many data entries are not
+        properly labelled, the obvious consideration for UX was to group the
+        stations by the county they are found in (as similar websites do). But
+        crucially, the API response does not provide the county information
+        anywhere, which means that I couldn't dynamically display a list of
+        stations directly from a fetch request. Instead, I had to use a{" "}
         <strong>Python package called GeoPy</strong> to reverse-identify the
         county based on the geocoordinates of the station. Unfortunately, this
         means the lists displayed on the 'Stations' page are rendered using a
@@ -140,14 +141,20 @@ function AboutPage() {
         not useful for finding stations in specific areas you care about, so the
         next step was creating a map view of all the stations in England. To
         achieve this, I used the React Google Maps API which provides easy
-        methods to including a map within a React web page. Once again, I simply
-        parsed the geocoordinate (lat, lon) info of the stations provided by the
-        EA API and displayed markers on those locations. To improve UX, the map
-        is restricted to the general UK region, and automatically zooms into a
-        station upon clicking its marker. At the same time, a small popup
+        methods for including a map within a React web page. Once again, I
+        simply parsed the geocoordinate (lat, lon) info of the stations provided
+        by the EA API and displayed markers on those locations. To improve UX,
+        the map is restricted to the general UK region, and automatically zooms
+        into a station upon clicking its marker. At the same time, a small popup
         appears which displays the basic station info and takes you to the page
-        displaying its recent readings. This was a relatively simple process but
+        displaying its recent readings. Redirecting to the existing page format
+        was convenient thanks to the modular setup of my React components.
+        Incorporating a map view was a relatively simple process, but
         nevertheless required familiarising myself with another API and library.
+        I generated a personal API key to access the Google Cloud service, which
+        I've made sure to hide from the public codebase; I have a certain amount
+        of free credits per month which should never run out with the negligible
+        traffic this site will generate.
       </p>
 
       <p className="h4 mt-5 mb-4">Chart.js — Line graphs</p>
@@ -172,26 +179,39 @@ function AboutPage() {
         of items, each of which containing a measure ID, a datetime record, and
         the value recorded. But this can be a mixture of multiple types of
         measures, like the water level at different stages or the flow rate,
-        which means I had to first group the data with their measure ID, and
-        create a complex script to create separate charts for each type of
+        which means I had to first group the data with their measure ID and then
+        write a complex script to create separate charts for each type of
         measure.
       </p>
       <p className="text-muted">
         But just seeing the recent readings gives us no useful information on
-        flooding risks by itself, so I also incorporated a shaded area of the
-        'typical water level range' using values provided by the EA API. The
+        flooding risks by itself, so I also displayed the 'typical water level
+        range' (obtained from the API) using a shaded rectangular area. The
         issue I then found was that the magnitude of water level fluctuations
         within 24 hours was much smaller than the size of the typical range,
-        which means plotting both on the same chart meant all our readings
-        turned to straight lines. Since the task was to view the past 24h
-        readings, it was important to consider both the current fluctuations and
-        the scale in comparison to acceptable ranges. So to do this, I adapted
-        the script to allow the click of a button to add the typical range and
-        adjust the y-axis boundaries accordingly. This way we can toggle the
-        typical range to evaluate whether the water level is above normal and
-        therefore at risk of flooding.
+        which means plotting both on the same chart turns the readings into
+        featureless straight lines. Since the task was to view the past 24h
+        readings, it was important to distinguish both the current fluctuations
+        and its comparison to the typical range. So to do this, I adapted the
+        script to add the typical range and adjust the y-axis boundaries via the
+        click of a button on the page. This way, users can toggle the typical range
+        to evaluate whether the water level is above normal and therefore at
+        risk of flooding.
       </p>
 
+      <p className="h4 mt-5 mb-4">Future improvements</p>
+      <p className="text-muted">
+        The primary improvement I would make to this site would be to display
+        more useful insights for users who need to assess flooding risk. For
+        one, the EA API gives live warnings for certain areas, which could
+        easily be incorporated into the map view. But many existing websites,
+        including the EA's own website, already provide great interfaces for
+        viewing this API's data, so the real challenge would be to think of more
+        innovative features. Ultimately, I'm not sure the API can provide much
+        more value to a common user within such a format. The more interesting
+        work would be to couple this data with environmental models and perhaps
+        investigate the behaviour of river levels across England as a whole.
+      </p>
       <div className="mb-5"></div>
     </>
   );

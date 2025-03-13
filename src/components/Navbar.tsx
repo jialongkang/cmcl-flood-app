@@ -10,7 +10,7 @@ function Navbar() {
     <nav className="navbar navbar-expand-md navbar-light bg-light">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          CMCL River Gauge Tracker
+          CMCL River Gauge Monitoring
         </Link>
         <button
           className="navbar-toggler"

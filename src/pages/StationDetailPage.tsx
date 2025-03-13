@@ -28,7 +28,7 @@ function StationDetailPage() {
   const handleDetailsSuccess = useCallback((data: DetailsResponse) => {
     setDetails(data);
     setLoadingDetails(false);
-    //console.log("Details fetched:", data);
+    console.log("Details fetched:", data);
   }, []);
 
   const handleBackClick = () => {
@@ -58,7 +58,7 @@ function StationDetailPage() {
 
       <h1 className="mt-4">{stationName} Station</h1>
 
-      <h4 className="mt-4">Station Information:</h4>
+      <h4 className="mt-5 mb-3">Station Information:</h4>
       {loadingDetails ? (
         <div className="text-muted">
           <div className="spinner-border text-primary" role="status">
@@ -71,14 +71,14 @@ function StationDetailPage() {
           <div>
             <p>
               <i>Catchment:</i>{" "}
-              {details.items.catchmentName || "No river catchment available"}
+              {details.items.catchmentName || "No catchment info available"}
             </p>
             <p>
               <i>River:</i>{" "}
               {details.items.riverName || "No river info available"}
             </p>
             <p>
-              <i>Town:</i> {details.items.town || "No river town available"}
+              <i>Town:</i> {details.items.town || "No town info available"}
             </p>
           </div>
         )
@@ -96,16 +96,16 @@ function StationDetailPage() {
         onDetailsFetchSuccess={handleDetailsSuccess}
       />
 
-      <h4 className="mt-4">Recent Measurements (past 24h):</h4>
+      <h4 className="mt-5 mb-4">Recent Readings (past 24h):</h4>
       {loadingReadings ? (
         <div className="text-muted">
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
-          <p>Loading measurements...</p>
+          <p>Loading readings...</p>
         </div>
       ) : (
-        readings && details && <Chart data={readings} details={details} />
+        readings && details && <Chart readings={readings} details={details} />
       )}
       <div className="mt-5"></div>
     </div>

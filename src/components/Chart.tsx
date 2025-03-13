@@ -26,7 +26,7 @@ ChartJS.register(
 );
 
 interface ChartProps {
-  data: ReadingsResponse;
+  readings: ReadingsResponse;
   details: DetailsResponse;
 }
 
@@ -60,6 +60,7 @@ const parseMeasureId = (measureId: string) => {
     mAOD: "m",
     m: "m",
     "m3_s": "m³/s",
+    "Ml_d": "Ml/d",
   };
 
   return {
@@ -77,8 +78,8 @@ const formatDateRange = (startDate: Date, endDate: Date) =>
     month: "long",
   })} ${endDate.getFullYear()}`;
 
-const Chart = ({ data, details }: ChartProps) => {
-  if (!data?.items?.length) return <p>No data available</p>;
+const Chart = ({ readings, details }: ChartProps) => {
+  if (!readings?.items?.length) return <p>No readings available. Station is currently inactive.</p>;
 
   const [showTypicalRange, setShowTypicalRange] = useState<{
     [key: string]: boolean;
@@ -88,7 +89,7 @@ const Chart = ({ data, details }: ChartProps) => {
     setShowTypicalRange((prev) => ({ ...prev, [measureId]: !prev[measureId] }));
   };
 
-  const groupedReadings = data.items.reduce<{ [key: string]: any[] }>(
+  const groupedReadings = readings.items.reduce<{ [key: string]: any[] }>(
     (acc, reading) => {
       acc[reading.measure] = acc[reading.measure] || [];
       acc[reading.measure].push(reading);

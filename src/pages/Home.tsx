@@ -4,7 +4,7 @@ function HomePage() {
   return (
     <div>
       <div className="mt-4"></div>
-      <h1>River Gauge Tracker</h1>
+      <h1>Real-Time River Gauge Monitoring</h1>
       <div className="mt-4"></div>
       <p>
         This site allows you to view recent readings for river level and flow measurement stations 

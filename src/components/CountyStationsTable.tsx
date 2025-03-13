@@ -16,6 +16,7 @@ const CountyStationsTable = ({ county, stations, onSelectStation }: StationsTabl
       <thead>
         <tr>
           <th className="text-start">Label</th>
+          <th>River</th>
           <th>Town</th>
           <th>Measure</th>
         </tr>
