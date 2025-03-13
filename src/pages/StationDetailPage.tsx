@@ -28,7 +28,7 @@ function StationDetailPage() {
   const handleDetailsSuccess = useCallback((data: DetailsResponse) => {
     setDetails(data);
     setLoadingDetails(false);
-    console.log("Details fetched:", data);
+    //console.log("Details fetched:", data);
   }, []);
 
   const handleBackClick = () => {
