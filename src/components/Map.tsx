@@ -15,11 +15,16 @@ function Map({ stations }: MapProps) {
   );
   const [center, setCenter] = useState({ lat: 54.0, lng: -3.0 });
   const [zoom, setZoom] = useState(6);
-  const mapRef = useRef<google.maps.Map | null>(null); 
+  const mapRef = useRef<google.maps.Map | null>(null);
   const navigate = useNavigate();
 
   const handleMarkerClick = (station: StationData) => {
     setSelectedStation(station);
+    setCenter({
+      lat: parseFloat(station.Lat),
+      lng: parseFloat(station.Long),
+    });
+    setZoom(13);
     if (mapRef.current) {
       mapRef.current.setCenter({
         lat: parseFloat(station.Lat),
