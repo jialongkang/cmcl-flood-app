@@ -13,7 +13,7 @@ function AboutPage() {
         Here I will outline the process and technologies behind this tool. The
         codebase can be found at this public
         <a
-          href="https://github.com/jialongkang/cmcl-river-gauge-web"
+          href="https://github.com/jialongkang/cmcl-flood-app"
           target="_blank"
           rel="noopener noreferrer"
           className="text-secondary fw-bold"
